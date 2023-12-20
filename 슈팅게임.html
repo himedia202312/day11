@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:1280px;
+            height:640px;
+            margin: auto;
+            background-image: url(../images/Airplane/game_bg.jpg);
+            background-size: 1280px 640px;
+            position: relative;
+        }
+    </style>
+    <script src="../lib/Plane.js"></script>
+    <script src="../lib/Bullet.js"></script>
+    <script>
+        let wrapper;
+        let plane; //비행기의 인스턴스를 보관할 전역변수
+        let bulletArray=[]; //총알 다수개를 보관할 수 있는 전역변수 
+
+        function gameLoop(){
+            //비행기 move() 메서드를 끊임없이 호출하자
+            plane.move();
+
+            //총알의 move() 를 끊임없이 호출 
+            for(let i=0;i<bulletArray.length;i++){
+                bulletArray[i].move();
+            }
+        }
+
+        //총알을 발사하고, 생성된 총알은 배열에 추가..
+        function fire(){
+            let bullet = new Bullet(wrapper, plane.x+plane.width, plane.y+(plane.height/2) ,20,20,8,0,"red");
+            bulletArray.push(bullet);
+        }
+
+        addEventListener("load", function(){
+            wrapper = document.getElementById("wrapper");
+            
+            plane = new Plane(wrapper, 0,100,50,40, 0,0);
+            
+
+            setInterval("gameLoop()", 10);
+
+            //키보드 이벤트 연결 
+            document.body.addEventListener("keydown", function(){
+                switch(event.keyCode){
+                    case 37:plane.velX=-5 ; break; //좌 
+                    case 39:plane.velX=5 ; break; //우 
+                    case 38:plane.velY=-5 ; break; //위 
+                    case 40:plane.velY=5 ; break; //아래 
+                    case 32:fire();break;
+                }
+            });
+
+            document.body.addEventListener("keyup", function(){
+                switch(event.keyCode){
+                    case 37:plane.velX=0 ; break; //좌 
+                    case 39:plane.velX=0 ; break; //우 
+                    case 38:plane.velY=0 ; break; //위 
+                    case 40:plane.velY=0 ; break; //아래 
+                }
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
