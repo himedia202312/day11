@@ -41,6 +41,7 @@
 
                 wrapper.appendChild(this.div);
 
+
             }
             
             move(){
@@ -71,6 +72,12 @@
                 //나와 상대방의 충돌여부를 판단해본다 
                 let result = collisionCheck(box1 , box2);
                 console.log("충돌결과 ", result);
+                //충돌시 초록색을 다시 흰색으로 
+                if(result){
+                    box2.div.style.background="white";
+                }else{
+                    box2.div.style.background="green";
+                }
 
             });
         });
