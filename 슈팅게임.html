@@ -23,6 +23,7 @@
         let plane; //비행기의 인스턴스를 보관할 전역변수
         let bulletArray=[]; //총알 다수개를 보관할 수 있는 전역변수 
         let enemyArray=[]; //적군 다수 마리를 담는 전역변수 
+        let enemySrc=["enemy1.gif","enemy2.gif","enemy3.gif","enemy4.gif"];
 
         function gameLoop(){
             //비행기 move() 메서드를 끊임없이 호출하자
@@ -34,7 +35,10 @@
             }
 
             //적군 수만큼 move()
-            fodskfdsjlksdfakkfd;
+            for(let i=0;i<enemyArray.length;i++){
+                enemyArray[i].move();
+            }
+            
         }
 
         //총알을 발사하고, 생성된 총알은 배열에 추가..
@@ -46,7 +50,7 @@
         //적군생성
         function createEnemy(){
             for(let i=0;i<4;i++){
-                let enemy = new Enemy(wrapper, "../images/Airplane/enemy1.gif", 1200, i*130 ,75,80, -3, 0);
+                let enemy = new Enemy(wrapper, "../images/Airplane/"+enemySrc[i], 1200, i*130 ,75,80, -3, 0);
                 enemyArray.push(enemy);
             }
         }
